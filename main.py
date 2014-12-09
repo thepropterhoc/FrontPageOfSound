@@ -13,7 +13,7 @@ subreddit = r.get_subreddit('listentothis')
 
 files = []
 
-
+"""
 for thing in subreddit.get_hot(limit=20):
 	if thing.domain == 'youtube.com':
 		video = pafy.new(thing.url)
@@ -25,7 +25,7 @@ for thing in subreddit.get_hot(limit=20):
 		downloader = download.SoundCloudDownload(thing.url)
 		downloader.downloadSongs()
 		files += downloader.fileList
-		
+		"""
 		
 
 for f in files:
@@ -35,7 +35,8 @@ for f in files:
 
 for f in os.listdir('./files'):
 	title, extension = os.path.splitext(f)
-	if not extension == '.m4a' and not extension == '.mp3' and not extension == '.ogg' and not title.startswith('.') and not extension == '.py':
+	#and not extension == '.ogg' 
+	if not extension == '.m4a' and not extension == '.mp3' and not title.startswith('.') and not extension == '.py':
 		endFile = './files/' + title + ".mp3"
 		startFile = './files/' + f
 		AudioSegment.from_file(startFile).export(endFile, format="mp3")
