@@ -11,7 +11,7 @@ import soundcloud
 import math
 import os
 
-from eyed3 import *
+#from eyed3 import *
 
 class SoundCloudDownload:
    def __init__(self, url, verbose=None, tags=None):
