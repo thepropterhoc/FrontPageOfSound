@@ -38,7 +38,8 @@ for f in os.listdir('./files'):
 	if not extension == '.m4a' and not extension == '.mp3' and not extension == '.ogg' and not title.startswith('.') and not extension == '.py':
 		endFile = './files/' + title + ".mp3"
 		startFile = './files/' + f
-		audiotools.MP3Audio.from_pcm(endFile, audiotools.open(startFile).to_pcm())
+		AudioSegment.from_file(startFile).export(endFile, format="mp3")
+		#audiotools.MP3Audio.from_pcm(endFile, audiotools.open(startFile).to_pcm())
 
 with open('manifest.txt', 'w') as f:
 	for writeMe in files:
