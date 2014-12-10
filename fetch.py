@@ -5,7 +5,6 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 reload(sys)
 
-
 def fetch(num):
 	paths = []
 
@@ -31,6 +30,9 @@ def fetch(num):
 			downloader.downloadSongs()
 			files += downloader.fileList
 
+	shutil.rmtree('./files/')
+	os.mkdir('./files/')
+
 	for f in files:
 		shutil.copy(f, './files/')
 		paths += ['./files/' + f]
@@ -39,14 +41,18 @@ def fetch(num):
 	for f in os.listdir('./files'):
 		title, extension = os.path.splitext(f)
 		#and not extension == '.ogg' 
-		if not extension == '.m4a' and not extension == '.mp3' and not title.startswith('.') and not extension == '.py':
+		if not extension == '.mp3' and not title.startswith('.') and not extension == '.py':
 			endFile = './files/' + title + ".mp3"
 			startFile = './files/' + f
 			AudioSegment.from_file(startFile).export(endFile, format="mp3")
+			os.remove(startFile)
 			#audiotools.MP3Audio.from_pcm(endFile, audiotools.open(startFile).to_pcm())
 
-	with open('manifest.txt', 'w') as f:
-		for writeMe in files:
-			f.write(writeMe + '\n')
+	retval = []
 
-	return files
+	for f in os.listdir('./files'):
+		title, extension = os.path.splitext(f)
+		if extension == '.mp3':
+			retval += [title + extension]
+
+	return retval
