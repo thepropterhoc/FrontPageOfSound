@@ -20,10 +20,13 @@ def fetch(num):
 
 	for thing in subreddit.get_hot(limit=num):
 		if thing.domain == 'youtube.com':
-			video = pafy.new(thing.url)
-			bestaudio = video.getbestaudio()
-			retval = bestaudio.download()
-			files += [str(retval)]
+			try:
+				video = pafy.new(thing.url)
+				bestaudio = video.getbestaudio()
+				retval = bestaudio.download()
+				files += [str(retval)]
+			except:
+				print "bad youtube fetch"
 		elif thing.domain == 'soundcloud.com':
 			track = client.get('/resolve', url=thing.url)
 			downloader = download.SoundCloudDownload(thing.url)
