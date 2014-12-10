@@ -1,0 +1,82 @@
+General Information
+===================
+
+eyeD3 is a Python library for reading ID3v1/v1.1 tags from mp3 files.
+Partial support for ID3v2 is complete.  It is entirely usable for reading
+except for some advanced features such as extension headers, footers, padding,
+and non UserText frames.  Future versions will strive for ID3v2.4 compliance.
+
+Much of ID3v2Frame.py and all of binfuncs.py were written by Ryan Finnie
+<ryan@finnie.org> for his PyID3 project. None of the PyID3 project
+files have been touched since August 2001, and eyeD3 was essentially forked
+from the 0.0.1 version.
+
+The eyeD3 project pages is:
+   http://www.travisshirk.net/eyeD3
+   
+
+Requirements
+============
+ o Python >= 2.2 (for it's iterator support)
+
+Optional
+--------
+ o id3lib.  If the id3lib (http://http://id3lib.sourceforge.net) library is
+            found on your system it will be used to compile id3lib_test.
+            This program is very used for obtaining valid ID3 data from files
+            and is primarily used for *developing* eyeD3.  If id3lib is not
+            found during configureation this program will not be built.
+            
+   
+Installation
+============
+
+   gzip -dc eyeD3-x.y.z.tar.gz | tar xvf -
+   cd eyeD3-x.y.z
+
+   ./configure
+   make
+   make install (as root)
+
+When Building From CVS
+----------------------
+In order to bootstrap the autoconf system, it is required to run ./autogen.sh.
+The script only needs to be re-run when changes are made to configure.in or
+acsite.m4.  autogen.sh is not included in distributions as it is not needed
+unless working from a CVS repository.
+
+
+How to Use eyeD3
+================
+The eyeD3.py utility is the best demonstration of eyeD3 usage.  So take a look
+at it.  Some simle examples follow here, but in the interest of space no error
+handling is shown.
+
+Reading the contents of an mp3 file containing either v1 or v2 tag info:
+   import eyeD3;
+   tag = eyeD3.ID3_Tag();
+   tag.link("/some/file.mp3");
+   print tag.getArtist();
+   print tag.getAlbum();
+   print tag.getTitle();
+   etc....
+
+Or you can iterate of the raw frames:
+   import eyeD3;
+   tag = eyeD3.ID3_Tag();
+   tag.link("/some/file.mp3");
+   for frm in tag:
+      print frm;
+   
+
+
+Bugs and Patches
+================
+Please submits all comments to Travis Shirk <travis@pobox.com>, especially
+those of the patch variety :)
+
+
+See Also
+========
+eyeD3 is free software, refer to the COPYING file for details.
+See the TODO file for planned enhancements.

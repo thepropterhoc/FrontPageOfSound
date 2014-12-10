@@ -1,0 +1,21 @@
+ID3LIB_CXXFLAGS=@ID3LIB_CXXFLAGS@
+ID3LIB_LIBS=@ID3LIB_LIBS@
+
+TARGETS=
+ifeq (@HAVE_ID3LIB@,yes)
+   TARGETS += id3lib_test
+endif
+
+.PHONY : all clean dist-clean maintainer-clean
+
+all : ${TARGETS}
+
+
+id3lib_test : id3lib_test.cpp
+	${CXX} -g ${ID3LIB_CXXFLAGS} -o $@ $< ${ID3LIB_LIBS}
+
+clean :
+	-rm -rf *.o ${TARGETS} eyeD3/*.pyc
+
+dist-clean : clean
+	-rm -rf Makefile config.h eyeD3/config.py

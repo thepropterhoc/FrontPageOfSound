@@ -1,0 +1,6 @@
+Planned Enhancements and Known Bugs
+===================================
+ o Genre class completion and tag value parsing.
+ o Read exteneded headers in ID3v2.
+ o Handle appened ID3v2 tags (i.e. follow all audio frames).
+ o Handle encodings better with a default (ISO-8859-1??) mechanism.

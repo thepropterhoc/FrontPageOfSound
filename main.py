@@ -1,4 +1,4 @@
-import soundcloud, praw, pafy, download, shutil, os, audiotools
+import soundcloud, praw, pafy, download, shutil, os
 from pydub import AudioSegment
 
 paths = []
@@ -13,8 +13,8 @@ subreddit = r.get_subreddit('listentothis')
 
 files = []
 
-"""
-for thing in subreddit.get_hot(limit=20):
+
+for thing in subreddit.get_hot(limit=10):
 	if thing.domain == 'youtube.com':
 		video = pafy.new(thing.url)
 		bestaudio = video.getbestaudio()
@@ -25,7 +25,7 @@ for thing in subreddit.get_hot(limit=20):
 		downloader = download.SoundCloudDownload(thing.url)
 		downloader.downloadSongs()
 		files += downloader.fileList
-		"""
+		
 		
 
 for f in files:

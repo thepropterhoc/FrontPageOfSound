@@ -1,0 +1,39 @@
+PACKAGE=@PACKAGE@
+VERSION=@VERSION@
+DIST_NAME=${PACKAGE}-${VERSION}
+DIST_TAR=${PACKAGE}-${VERSION}.tar
+DIST_TARBALL=${PACKAGE}-${VERSION}.tar.gz
+PYTHON=@PYTHON@
+
+.PHONY : all install clean dist-clean maintainer-clean dist
+
+all :
+	${PYTHON} setup.py build
+	cd src && ${MAKE} all
+
+install :
+	${PYTHON} setup.py install
+	cp bin/eyeD3 /usr/local/bin
+
+clean :
+	-rm -rf build
+	cd src && ${MAKE} clean
+
+dist-clean : clean
+	-rm -f Makefile config.*
+	cd src && ${MAKE} dist-clean
+
+maintainer-clean : dist-clean
+	-rm -f configure src/config.h.in
+
+dist : dist-clean
+	mkdir ${DIST_NAME}
+	cp AUTHORS COPYING README TODO ${DIST_NAME}
+	cp acsite.m4 configure setup.py Makefile.in ${DIST_NAME}
+	cp -r src ${DIST_NAME}
+	cp -r bin ${DIST_NAME}
+	find ${DIST_NAME} -type d -name CVS -print | xargs rm -rf
+	tar cf ${DIST_TAR} ${DIST_NAME}
+	gzip ${DIST_TAR}
+	rm -rf ${DIST_NAME}
+   
